@@ -1,23 +1,24 @@
-import networkx as nx
+def dijkstra_manual(graph, start):
+    distances = {node: float('inf') for node in graph.nodes()}
+    distances[start] = 0
+    visited = set()
 
-G = nx.Graph()
+    while len(visited) < len(graph.nodes()):
+        current = None
+        current_distance = float('inf')
 
-G.add_weighted_edges_from([
-    ("Центр", "Північ", 4),
-    ("Центр", "Південь", 6),
-    ("Центр", "Схід", 3),
-    ("Центр", "Захід", 5),
-    ("Північ", "Схід", 2),
-    ("Південь", "Захід", 2),
-    ("Схід", "Промзона", 7),
-    ("Захід", "Промзона", 3)
-])
+        for node in graph.nodes():
+            if node not in visited and distances[node] < current_distance:
+                current = node
+                current_distance = distances[node]
 
-paths = dict(nx.all_pairs_dijkstra_path(G))
-lengths = dict(nx.all_pairs_dijkstra_path_length(G))
+        if current is None:
+            break
 
-for start in paths:
-    print("Від:", start)
-    for end in paths[start]:
-        print("До:", end, "Шлях:", paths[start][end], "Довжина:", lengths[start][end])
-    print()
+        visited.add(current)
+
+        for neighbor in graph[current]:
+            weight = graph[current][neighbor]["weight"]
+            new_dist = distances[current] + weight
+            if new_dist < distances[neighbo]()_
+
